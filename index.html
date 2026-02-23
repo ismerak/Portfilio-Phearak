@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>My Portfilio</title>
+    <style>
+        .font-ubuntu {
+            font-family: "Ubuntu", sans-serif;
+            font-weight: 450;
+            font-style: normal;
+        }
+
+        .font-ubuntu-bold {
+            font-family: "Ubuntu", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .bg-blur {
+            background: #ffffff25;
+            backdrop-filter: blur(10px);
+        }
+
+        ::selection {
+            background-color: #0099ff21;
+            color: #0099ff
+        }
+
+        ::-moz-selection {
+            background-color: #0099ff21;
+            color: #0099ff
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Geologica:wght,CRSV@100..900,0&family=Hammersmith+One&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Share+Tech&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+    </style>
+</head>
+
+<body class="">
+    <!-- Header -->
+    <nav class="w-full py-4 bg-blur fixed top-0 z-50 shadow-sm">
+        <div class="lg:max-w-7xl max-w-5xl mx-auto flex justify-between items-center px-4">
+            <div><a href="" class="font-ubuntu text-2xl uppercase">I'm Phearak</a></div>
+            <ul class="sm:flex hidden items-center gap-6">
+                <li><a href="" class="font-ubuntu transition-all duration-200 hover:text-blue-500">Home</a></li>
+                <li><a href="" class="font-ubuntu transition-all duration-200 hover:text-blue-500">About</a></li>
+                <li><a href="" class="font-ubuntu transition-all duration-200 hover:text-blue-500">Skills</a></li>
+                <li><a href="" class="font-ubuntu transition-all duration-200 hover:text-blue-500">Projects</a></li>
+                <li><a href="" class="font-ubuntu transition-all duration-200 hover:text-blue-500">Contact</a></li>
+            </ul>
+            <button id="mobile-menu" class="sm:hidden flex items-center text-2xl cursor-pointer"
+                onclick="toggleMenu()"><i class="ri-menu-line"></i></button>
+        </div>
+    </nav>
+    <!-- hero section -->
+    <section class="w-full bg-gray-50">
+        <div class="lg:max-w-7xl max-w-5xl mx-auto flex flex-col items-center justify-center h-[600px] gap-4 px-4">
+            <div class="font-ubuntu sm:text-xl text-sm bg-blue-100 px-3 rounded-full text-blue-500">
+                <span>Welcome to my portfilio</span>
+            </div>
+            <h1 class="text-3xl max-w-xl sm:max-w-full sm:text-4xl font-ubuntu-bold text-center">Hello! I'm PHEARAK
+                <span class="text-blue-500">I am a
+                    website developer.</span>
+            </h1>
+            <p class="text-center text-gray-500">I am a web designer and developer with a passion for creating amazing
+                and highly
+                effective digital
+                experiences.</p>
+            <!-- btn -->
+            <div class="flex-col sm:flex-row flex gap-4 w-full  justify-center items-center">
+                <button
+                    class="bg-blue-500 px-4 py-2 rounded-lg text-white font-ubuntu cursor-pointer hover:bg-blue-600 transition-all duration-200 w-full sm:w-auto">View
+                    my
+                    work</button>
+                <button
+                    class="font-ubuntu px-4 py-2 rounded-lg text-gray-600 border border-gray-300 cursor-pointer w-full sm:w-auto w-full">Contact
+                    Me</button>
+            </div>
+        </div>
+        <div class="relative left-1/2 top-[-60px] text-center -translate-x-1/2 inline-block animate-bounce">
+            <i class="ri-arrow-drop-down-line text-5xl cursor-pointer text-blue-500"></i>
+        </div>
+    </section>
+    <script>
+    </script>
+
+</html>
