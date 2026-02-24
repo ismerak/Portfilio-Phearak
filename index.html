@@ -9,6 +9,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>My Portfilio</title>
     <style>
+        body {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
         .font-ubuntu {
             font-family: "Ubuntu", sans-serif;
             font-weight: 450;
@@ -46,34 +51,32 @@
         }
 
         .animate-step {
+            position: relative;
             display: inline-block;
-            vertical-align: bottom;
+            min-width: 250px;
             text-align: left;
-            min-width: 200px;
         }
 
         @media (max-width: 640px) {
             .animate-step {
-                min-width: 180px;
                 display: block;
-                margin: 0 auto;
+                margin: 5px auto;
+                text-align: center;
+                width: 100%;
+                min-width: 100%;
             }
-        }
-
-        .animate-step {
-            position: relative;
         }
 
         .animate-step::after {
             content: "";
             width: 100%;
             height: 100%;
-            background-color: ghostwhite;
+            background-color: #f9fafb;
             position: absolute;
             top: 0;
             left: 0;
             border-left: 2px solid #0099ff;
-            animation: step 4s steps(12) infinite;
+            animation: step 4s steps(15) infinite;
         }
 
         @keyframes step {
@@ -137,9 +140,11 @@
             <div class="font-ubuntu sm:text-xl text-sm bg-blue-100 px-3 rounded-full text-blue-500">
                 <span>Welcome To My Portfolio</span>
             </div>
-            <h1 class="text-3xl max-w-xl sm:max-w-full sm:text-4xl font-ubuntu-bold text-center">Hello! I'm PHEARAK
-                <span class="">I am a
-                    <span class="text-blue-500 inline-block animate-step min-w-[280px] sm:min-w-[350px] text-left"></span></span>
+            <h1 class="text-3xl max-w-xl sm:max-w-full sm:text-4xl font-ubuntu-bold text-center">
+                Hello! I'm PHEARAK
+                <span class="block sm:inline">I am a
+                    <span class="text-blue-500 animate-step"></span>
+                </span>
             </h1>
             <p class="text-center text-gray-500 font-family">I am a web designer and developer with a passion for
                 creating amazing
