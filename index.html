@@ -40,6 +40,11 @@
             scroll-behavior: smooth;
         }
 
+        .section-gray::selection {
+            background-color: rgba(128, 128, 128, 0.63);
+            color: white;
+        }
+
         ::selection {
             background-color: #0099ff21;
             color: #0099ff
@@ -48,6 +53,10 @@
         ::-moz-selection {
             background-color: #0099ff21;
             color: #0099ff
+        }
+
+        .bg-opacity-50 {
+            background-color: #065ad98e;
         }
 
         .typewriter-container {
@@ -119,7 +128,6 @@
             width: 8px;
             height: 12px;
         }
-
         @import url('https://fonts.googleapis.com/css2?family=Geologica:wght,CRSV@100..900,0&family=Hammersmith+One&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Share+Tech&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
     </style>
 </head>
@@ -302,7 +310,7 @@
                 <!-- ent-box -->
                 <div
                     class="shadow-sm rounded-lg flex-col gap-2 sm:flex-row w-full h-full overflow-hidden border-2 border-slate-600 hover:border-blue-500 transition-all duration-200">
-                    <div class="w-full max-h-[200px] overflow-hidden"><img
+                    <div class="w-full sm:max-h-[200px] overflow-hidden"><img
                             class="w-full h-full object-cover hover:scale-110 transition-all duration-600"
                             src="https://cdn.prod.website-files.com/65ba9a1f0a4a7ab901ad8d3e/6736fa7876841ab34403969a_6696609ed29123df047f9f17_Ki%2520Assitent%2520fu%25CC%2588r%2520Unternehmen.webp"
                             alt="">
@@ -348,15 +356,16 @@
                     class="shadow-sm rounded-lg flex-col gap-2 sm:flex-row w-full h-full overflow-hidden border-2 border-slate-600 hover:border-blue-500 transition-all duration-200">
                     <div class="w-full max-h-[200px] overflow-hidden"><img
                             class="w-full h-full object-cover hover:scale-110 transition-all duration-600"
-                            src="https://i.pinimg.com/736x/56/24/bf/5624bf88445589d99cdc53b32d334ccc.jpg" alt="">
+                            src="https://mir-s3-cdn-cf.behance.net/projects/404/0f1ffa210687553.Y3JvcCw1ODMzLDQ1NjIsMCwzMDM.jpg"
+                            alt="">
                     </div>
                     <div class="p-4 flex flex-col space-y-1">
                         <div class="flex gap-2 items-center">
                             <img class="w-5 h-5" src="https://cdn-icons-png.flaticon.com/512/5968/5968520.png" alt="">
                         </div>
-                        <h1 class="text-xl font-ubuntu-bold text-blue-500">E-Commerce Website</h1>
-                        <p class="text-sm text-slate-400">A fully functional online shopping website, including a
-                            payment system.</p>
+                        <h1 class="text-xl font-ubuntu-bold text-blue-500">Graphic Design</h1>
+                        <p class="text-sm text-slate-400">A poster is a visual shout." — It needs to be loud enough to
+                            be heard across a busy street, but clear enough to be understood in seconds.</p>
                         <a href=""
                             class="text-blue-500 hover:text-blue-600 transition-all duration-200 hover:underline">View
                             project <i class="ri-arrow-right-line"></i></a>
@@ -365,6 +374,62 @@
                 <!-- ent-box -->
             </div>
         </div>
+    </div>
+    <!-- contact -->
+    <div class="w-full bg-gray-50 p-4">
+        <section class="max-w-7xl m-auto py-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 shadow-xl rounded-lg overflow-hidden min-h-[400px]">
+                <div class="bg-blue-500 p-8 text-white flex flex-col gap-2 ">
+                    <h1 class="text-3xl font-ubuntu-bold section-gray">Come and collaborate!</h1>
+                    <p class="text-gray-100 section-gray">Do you have a project in mind? Send me a message and we'll
+                        chat about how I
+                        can help you.</p>
+                    <div class="flex flex-col gap-2 mt-4 ">
+                        <p class="flex items-center gap-2"><i
+                                class="ri-mail-line text-2xl bg-opacity-50 px-[7px] py-[3px] text-white rounded-full"></i><span
+                                class="section-gray">raphearak2006@gmail.com</span>
+                        </p>
+                        <p class="flex items-center gap-2"><i
+                                class="ri-linkedin-box-fill text-2xl bg-opacity-50 px-[7px] py-[3px] text-white rounded-full"></i><span
+                                class="section-gray">www.linkedin.com/in/phearak-ra-52771639a</span>
+                        </p>
+                        <p class="flex items-center gap-2"><i
+                                class="ri-phone-fill text-2xl bg-opacity-50 px-[7px] py-[3px] text-white rounded-full"></i><span
+                                class="section-gray">+855 : 060 445 400</span>
+                        </p>
+                    </div>
+                </div>
+                <!-- ent-box-left -->
+                <div class="flex flex-col gap-2 p-8">
+                    <label for="">Name</label>
+                    <input type="text"
+                        class="focus:outline-2 focus:outline-blue-500 p-2 border-1 border-gray-300 rounded-md transition">
+                    <label for="">Email</label>
+                    <input type="email"
+                        class="focus:outline-2 focus:outline-blue-500 p-2 border-1 border-gray-300 rounded-md">
+                    <label for="">Message</label>
+                    <textarea name="" id=""
+                        class="min-h-[200px] focus:outline-2 focus:outline-blue-500 p-2 border-1 border-gray-300 rounded-md"></textarea>
+                    <button onclick="showMessage()"
+                        class="flex items-center gap-2 justify-center bg-blue-500 text-white p-2 py-3 rounded-lg hover:shadow-lg cursor-pointer mt-4">Send
+                        a message <i class="ri-send-plane-fill"></i></button>
+                    <p class="text-blue-600 hidden text-center mt-4" id="showmessagn">✅ Your message has been sent!</p>
+                </div>
+            </div>
+        </section>
+        <footer class="border-t-1 border-gray-300">
+            <div class="max-w-7xl m-auto py-3 flex flex-col justify-center items-center">
+                <div class="text-3xl flex gap-4 items-center mb-3">
+                    <a href="https://github.com/ismerak" target="_blank" class="hover:text-slate-600 transition-all"><i class="ri-github-fill"></i></a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=raphearak2006@gmail.com" target="_blank" class="hover:text-blue-600 transition-all"><i class="ri-mail-send-line"></i></a>
+                    <a href="https://www.linkedin.com/in/phearak-ra-52771639a" target="_blank" class="hover:text-blue-700 transition-all"><i class="ri-linkedin-box-fill"></i></a>
+                    <a href="https://t.me/raphearak" target="_blank" class="hover:text-sky-500 transition-all"><i class="ri-telegram-fill"></i></a>
+                    <a href="https://www.facebook.com/raphearak006" target="_blank" class="hover:text-blue-700 transition-all"><i class="ri-facebook-circle-fill"></i></a>
+                </div>
+                <div class="text-gray-400 sm:text-xl text-sm">&copy; 2026 All rights reserved by Ra Phearak. Prepared
+                    with love.</div>
+            </div>
+        </footer>
     </div>
     <script>
         const animateStep = document.querySelector(".animate-step");
@@ -379,8 +444,14 @@
             changeText();
             setInterval(changeText, 4000);
         }
-
         textload();
+        function showMessage() {
+            const msg = document.getElementById("showmessagn");
+            msg.style.display = "block";
+            setInterval(() => {
+                msg.style.display = "none";
+            }, 4000);
+        }
     </script>
 
 </html>
