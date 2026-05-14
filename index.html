@@ -1,14 +1,247 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/assets/pf-C6P6OOo1.jpg" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>im-rak</title>
-    <script type="module" crossorigin src="/assets/index-BPG8V_b-.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-By66r6x1.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+    <title>Portfolio</title>
+    <style>
+        @layer utilities {
+
+            /* បង្កើត Keyframes សម្រាប់ចលនា */
+            @keyframes animate-blob {
+                0% {
+                    transform: translate(0px, 0px) scale(1);
+                }
+
+                33% {
+                    transform: translate(30px, -50px) scale(1.1);
+                }
+
+                66% {
+                    transform: translate(-20px, 20px) scale(0.9);
+                }
+
+                100% {
+                    transform: translate(0px, 0px) scale(1);
+                }
+            }
+
+            /* បង្កើត Class សម្រាប់ហៅប្រើ */
+            .animate-blob {
+                animation: animate-blob 7s infinite;
+            }
+
+            .animation-delay-2000 {
+                animation-delay: 2s;
+            }
+
+            .animation-delay-4000 {
+                animation-delay: 4s;
+            }
+        }
+        @layer utilities {
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+  
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+}
+    </style>
+</head>
+
+<body class="bg-mist-950 h-[200vh] overflow-x-hidden">
+    <!-- navbar -->
+   <header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between py-5 text-white px-6 transition-all duration-500">
+        <span class="text-2xl font-bold tracking-tight">I'm <span class="text-green-400">Rakz</span></span>
+        
+        <ul class="hidden sm:flex gap-8 items-center font-medium">
+    <!-- Home -->
+    <li>
+        <a href="#home" class="inline-block hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform">
+            Home
+        </a>
+    </li>
+
+    <!-- About -->
+    <li>
+        <a class="inline-block hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform" href="#">
+            About
+        </a>
+    </li>
+
+    <!-- Services -->
+    <li>
+        <a class="flex items-center gap-1 hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform" href="#">
+            Services <i class="ri-shining-fill text-[10px]"></i>
+        </a>
+    </li>
+
+    <!-- Page -->
+    <li>
+        <a class="inline-block hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform" href="#">
+            Page
+        </a>
+    </li>
+
+    <!-- Contact -->
+    <li>
+        <a class="flex items-center gap-1 hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform" href="#">
+            Contact <i class="ri-shining-fill text-[10px]"></i>
+        </a>
+    </li>
+</ul>
+
+        <button class="bg-green-500 text-white px-6 py-2.5 rounded-full border-b-4 border-green-700 active:translate-y-1 cursor-pointer hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_0_20px_rgba(34,197,94,0.4)] flex items-center gap-2">
+            <i class="ri-download-cloud-fill"></i> Download CV
+        </button>
+    </nav>
+</header>
+
+<!-- បន្ថែម Padding ឱ្យ Body ដើម្បីកុំឱ្យ Content លេចចូលក្រោម Header កាលនៅខាងលើគេ -->
+<div class="h-20"></div>
+    <!-- end navbar -->
+    <!-- section -->
+    <section  class="max-w-7xl mx-auto text-center py-20 text-white px-4">
+        <div class="flex flex-col gap-4 items-center">
+            <p class="text-xl text-green-300">Personal Portfolio</p>
+            <span class="text-6xl font-bold">About <span class="text-green-500">Us</span></span></span>
+            <p class="max-w-[350px] mx-auto">this portfolio, I aim to showcase my skills and projects to potential
+                employers or clients.</p>
+        </div>
+        <!-- header -->
+        <!-- main -->
+      <!-- Skill Section Container -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 mt-20 items-center">
+    
+    <!-- Left Side: Image with Effects -->
+    <div class="relative group justify-self-center md:justify-self-start">
+        <!-- Neon Glow Backlight -->
+        <div class="absolute inset-0 bg-green-500/20 rounded-full blur-3xl opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
+        
+        <!-- Image Container with Glassmorphism Frame -->
+        <div class="relative p-2 bg-white/5 backdrop-blur-sm rounded-3xl border border-white/10 shadow-2xl animate-float">
+            <img class="h-96 w-auto object-cover rounded-2xl aspect-[3/4]" src="my.png" alt="My Profile">
+        </div>
+        
+        <!-- Decoration: Small Floating Badge -->
+        <div class="absolute -bottom-5 -right-5 bg-emerald-950/80 backdrop-blur-lg p-4 rounded-xl border border-emerald-500/30 shadow-xl animate-float animation-delay-2000">
+            <i class="ri-code-s-slash-line text-3xl text-emerald-400"></i>
+        </div>
+    </div>
+
+    <!-- Right Side: Text & Skills -->
+    <div>
+        <!-- Section Header -->
+        <div class="flex flex-col gap-4 mb-12">
+            <div class="flex items-center gap-2">
+                <span class="w-10 h-0.5 bg-emerald-500"></span>
+                <p class="text-emerald-400 font-medium tracking-wider uppercase text-sm">My Expertise</p>
+            </div>
+            <h2 class="text-5xl font-bold leading-tight text-white">
+                What I <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-300">Can Do?</span>
+            </h2>
+            <p class="text-gray-400 max-w-lg mt-2">
+                Within this portfolio, you will find a curated collection of my work and achievements, showcasing my technical proficiency and creative problem-solving skills.
+            </p>
+        </div>
+
+        <!-- Skills Progress Bars with Neon Glow -->
+        <div class="flex flex-col gap-y-8 max-w-xl text-white">
+            
+            <!-- Skill: HTML -->
+            <div>
+                <div class="flex items-center justify-between mb-2.5">
+                    <span class="font-semibold text-lg flex items-center gap-2"><i class="ri-html5-fill text-orange-500"></i> HTML</span>
+                    <span class="text-sm font-medium p-1 px-3 bg-orange-950/50 rounded-full text-orange-300 border border-orange-500/20">75%</span>
+                </div>
+                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden shadow-inner">
+                    <div class="w-[75%] bg-orange-500 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_#f97316]"></div>
+                </div>
+            </div>
+
+            <!-- Skill: Tailwind CSS -->
+            <div>
+                <div class="flex items-center justify-between mb-2.5">
+                    <span class="font-semibold text-lg flex items-center gap-2"><i class="ri-tailwind-css-fill text-sky-400"></i> Tailwind CSS</span>
+                    <span class="text-sm font-medium p-1 px-3 bg-sky-950/50 rounded-full text-sky-300 border border-sky-500/20">65%</span>
+                </div>
+                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden shadow-inner">
+                    <div class="w-[65%] bg-sky-400 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_#38bdf8]"></div>
+                </div>
+            </div>
+
+            <!-- Skill: JavaScript -->
+            <div>
+                <div class="flex items-center justify-between mb-2.5">
+                    <span class="font-semibold text-lg flex items-center gap-2"><i class="ri-javascript-fill text-yellow-400"></i> JavaScript</span>
+                    <span class="text-sm font-medium p-1 px-3 bg-yellow-950/50 rounded-full text-yellow-300 border border-yellow-500/20">20%</span>
+                </div>
+                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden shadow-inner">
+                    <div class="w-[20%] bg-yellow-400 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_#facc15]"></div>
+                </div>
+            </div>
+
+            <!-- Skill: React JS -->
+            <div>
+                <div class="flex items-center justify-between mb-2.5">
+                    <span class="font-semibold text-lg flex items-center gap-2"><i class="ri-reactjs-fill text-blue-500"></i> React JS</span>
+                    <span class="text-sm font-medium p-1 px-3 bg-blue-950/50 rounded-full text-blue-300 border border-blue-500/20">30%</span>
+                </div>
+                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden shadow-inner">
+                    <div class="w-[30%] bg-blue-500 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_#3b82f6]"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+    </section>
+    <!-- end section -->
+    <!-- Background Animation Container -->
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+        <!-- Blob 1 -->
+        <div
+            class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-green-500/30 rounded-full blur-[120px] animate-blob">
+        </div>
+        <!-- Blob 2 -->
+        <div
+            class="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] bg-emerald-600/20 rounded-full blur-[100px] animate-blob animation-delay-2000">
+        </div>
+        <!-- Blob 3 -->
+        <div
+            class="absolute top-[30%] left-[20%] w-[300px] h-[300px] bg-lime-400/20 rounded-full blur-[80px] animate-blob animation-delay-4000">
+        </div>
+    </div>
+    <!--End Background Animation Container-->
+</body>
+<script>
+    const header = document.getElementById('main-header');
+    const nav = header.querySelector('nav');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            // ពេល Scroll ចុះក្រោម៖ បន្ថែម Blur, បង្រួមទំហំ និងដូរពណ៌
+            header.classList.add('bg-black/20', 'backdrop-blur-xl');
+            nav.classList.remove('py-5');
+            nav.classList.add('py-3');
+        } else {
+            // ពេលនៅខាងលើបង្អស់៖ ឱ្យវាមកសភាពដើមវិញ
+            header.classList.remove('bg-black/20', 'backdrop-blur-xl');
+            nav.classList.remove('py-3');
+            nav.classList.add('py-5');
+        }
+    });
+</script>
 </html>
