@@ -9,6 +9,17 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="icon.png" />
+    <!-- EmailJS SDK -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        // ចងចាំ៖ ជំនួស 'YOUR_PUBLIC_KEY' ជាមួយនឹង Public Key របស់អ្នកពី EmailJS
+        emailjs.init("wmd-MO1EwJfpC4Xiy");
+      })();
+    </script>
     <title>RA PHEARAK</title>
     <style>
       html {
@@ -192,9 +203,9 @@
           <li>
             <a
               class="nav-link inline-block hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform"
-              href="#page"
+              href="#projects"
             >
-              Page
+              Projects
             </a>
           </li>
 
@@ -463,7 +474,7 @@
     </section>
 
     <!-- Portfolio Section (Page) -->
-    <section id="page" class="max-w-7xl mx-auto py-20 px-4 scroll-mt-20">
+    <section id="projects" class="max-w-7xl mx-auto py-20 px-4 scroll-mt-20">
       <div class="flex flex-col gap-4 mb-16 text-center reveal">
         <div class="flex items-center justify-center gap-2">
           <span class="w-10 h-0.5 bg-emerald-500"></span>
@@ -560,7 +571,22 @@
               </div>
               <div>
                 <p class="text-sm text-gray-400">Email Address</p>
-                <p class="text-lg font-semibold">phearak.ra@example.com</p>
+                <p class="text-lg font-semibold">raphearak2006@gmail.com</p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="reveal p-6 bg-slate-900/50 rounded-2xl border border-white/10 hover:border-green-500/50 transition-colors group"
+          >
+            <div class="flex items-center gap-4">
+              <div
+                class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-green-500 text-2xl group-hover:scale-110 transition-transform"
+              >
+                <i class="ri-phone-line"></i>
+              </div>
+              <div>
+                <p class="text-sm text-gray-400">Phone Number</p>
+                <p class="text-lg font-semibold">+855 60 445 400</p>
               </div>
             </div>
           </div>
@@ -584,25 +610,29 @@
           <!-- Social Links -->
           <div class="reveal delay-200 flex gap-4">
             <a
-              href="#"
+              href="https://www.facebook.com/raphearak006/"
+              target="_blank"
               class="w-12 h-12 bg-slate-900/50 rounded-xl flex items-center justify-center text-xl text-gray-400 border border-white/10 hover:border-green-500 hover:text-green-500 transition-all"
             >
               <i class="ri-facebook-fill"></i>
             </a>
             <a
-              href="#"
+              href="https://github.com/ismerak"
+              target="_blank"
               class="w-12 h-12 bg-slate-900/50 rounded-xl flex items-center justify-center text-xl text-gray-400 border border-white/10 hover:border-green-500 hover:text-green-500 transition-all"
             >
               <i class="ri-github-fill"></i>
             </a>
             <a
-              href="#"
+              href="www.linkedin.com/in/raphearak"
+              target="_blank"
               class="w-12 h-12 bg-slate-900/50 rounded-xl flex items-center justify-center text-xl text-gray-400 border border-white/10 hover:border-green-500 hover:text-green-500 transition-all"
             >
               <i class="ri-linkedin-fill"></i>
             </a>
             <a
-              href="#"
+              href="https://t.me/raphearak"
+              target="_blank"
               class="w-12 h-12 bg-slate-900/50 rounded-xl flex items-center justify-center text-xl text-gray-400 border border-white/10 hover:border-green-500 hover:text-green-500 transition-all"
             >
               <i class="ri-telegram-fill"></i>
@@ -617,12 +647,14 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <input
               type="text"
+              name="from_name"
               placeholder="Your Name"
               class="w-full bg-slate-800/50 border border-white/5 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all text-white"
               required
             />
             <input
               type="email"
+              name="reply_to"
               placeholder="Your Email"
               class="w-full bg-slate-800/50 border border-white/5 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all text-white"
               required
@@ -630,11 +662,13 @@
           </div>
           <input
             type="text"
+            name="subject"
             placeholder="Subject"
             class="w-full bg-slate-800/50 border border-white/5 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all text-white"
           />
           <textarea
             rows="4"
+            name="message"
             placeholder="Your Message"
             class="w-full bg-slate-800/50 border border-white/5 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all text-white resize-none"
             required
@@ -670,24 +704,35 @@
         </div>
 
         <!-- Footer Links -->
-        <div
-          class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-gray-400 font-medium"
-        >
-          <a href="#home" class="hover:text-green-400 transition-colors"
-            >Home</a
+        <div class="flex flex-wrap justify-center gap-4 text-gray-400">
+          <a
+            href="https://www.facebook.com/raphearak006/"
+            target="_blank"
+            class="w-10 h-10 bg-slate-900/50 rounded-lg flex items-center justify-center text-lg border border-white/10 hover:border-green-500 hover:text-green-500 transition-all"
           >
-          <a href="#about" class="hover:text-green-400 transition-colors"
-            >About</a
+            <i class="ri-facebook-fill"></i>
+          </a>
+          <a
+            href="https://github.com/ismerak"
+            target="_blank"
+            class="w-10 h-10 bg-slate-900/50 rounded-lg flex items-center justify-center text-lg border border-white/10 hover:border-green-500 hover:text-green-500 transition-all"
           >
-          <a href="#services" class="hover:text-green-400 transition-colors"
-            >Services</a
+            <i class="ri-github-fill"></i>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/raphearak"
+            target="_blank"
+            class="w-10 h-10 bg-slate-900/50 rounded-lg flex items-center justify-center text-lg border border-white/10 hover:border-green-500 hover:text-green-500 transition-all"
           >
-          <a href="#page" class="hover:text-green-400 transition-colors"
-            >Page</a
+            <i class="ri-linkedin-fill"></i>
+          </a>
+          <a
+            href="https://t.me/raphearak"
+            target="_blank"
+            class="w-10 h-10 bg-slate-900/50 rounded-lg flex items-center justify-center text-lg border border-white/10 hover:border-green-500 hover:text-green-500 transition-all"
           >
-          <a href="#contact" class="hover:text-green-400 transition-colors"
-            >Contact</a
-          >
+            <i class="ri-telegram-fill"></i>
+          </a>
         </div>
       </div>
     </footer>
@@ -738,6 +783,18 @@
         class="max-w-[90%] max-h-[90vh] rounded-lg shadow-2xl transform scale-90 transition-transform duration-300"
       />
     </div>
+
+    <!-- Success Alert -->
+    <div
+      id="success-alert"
+      class="fixed top-24 left-1/2 -translate-x-1/2 z-[100] bg-green-500 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-4 opacity-0 invisible transition-all duration-500 transform -translate-y-10"
+    >
+      <i class="ri-checkbox-circle-fill text-2xl"></i>
+      <div class="flex flex-col">
+        <span class="font-bold text-lg">ជោគជ័យ!</span>
+        <span class="text-sm opacity-90">សាររបស់អ្នកត្រូវបានផ្ញើចេញហើយ។</span>
+      </div>
+    </div>
   </body>
   <script>
     const UI = {
@@ -766,6 +823,7 @@
       },
       downloadBtn: document.getElementById("download-cv"),
       sendBtn: document.getElementById("send-btn"),
+      successAlert: document.getElementById("success-alert"),
     };
 
     // --- Logic functions ---
@@ -817,17 +875,67 @@
 
     // សម្លេងសម្រាប់ប៊ូតុង Send Message (បំបែកចេញពី Form Click ធម្មតា)
     UI.sendBtn.addEventListener("click", (e) => {
+      e.preventDefault();
       e.stopPropagation();
       const form = UI.sendBtn.closest("form");
 
       if (form.checkValidity()) {
-        // បើបំពេញគ្រប់អស់ លេងសម្លេងជោគជ័យ
-        UI.sounds.send.currentTime = 0;
-        UI.sounds.send.play();
+        // បង្ហាញ Loading នៅលើប៊ូតុង
+        const originalBtnText = UI.sendBtn.innerHTML;
+        UI.sendBtn.innerHTML =
+          'Sending... <i class="ri-loader-4-line animate-spin"></i>';
+        UI.sendBtn.disabled = true;
+
+        // ផ្ញើសារពិតៗតាមរយៈ EmailJS
+        // ជំនួស 'YOUR_SERVICE_ID' និង 'YOUR_TEMPLATE_ID' តាមគណនីរបស់អ្នក
+        // ឧទាហរណ៍៖ emailjs.sendForm("service_xxxx", "template_xxxx", form)
+        emailjs
+          .sendForm("service_918g7gu", "template_gyroifh", form)
+          .then(
+            () => {
+              UI.sounds.send.currentTime = 0;
+              UI.sounds.send.play();
+
+              UI.successAlert.classList.remove(
+                "opacity-0",
+                "invisible",
+                "-translate-y-10",
+              );
+              UI.successAlert.classList.add(
+                "opacity-100",
+                "visible",
+                "translate-y-0",
+              );
+
+              form.reset();
+
+              setTimeout(() => {
+                UI.successAlert.classList.add(
+                  "opacity-0",
+                  "invisible",
+                  "-translate-y-10",
+                );
+                UI.successAlert.classList.remove(
+                  "opacity-100",
+                  "visible",
+                  "translate-y-0",
+                );
+              }, 3000);
+            },
+            (error) => {
+              console.error("FAILED...", error);
+              alert("សុំទោស! ការផ្ញើសារមានបញ្ហា។ សូមព្យាយាមម្តងទៀត។");
+            },
+          )
+          .finally(() => {
+            UI.sendBtn.innerHTML = originalBtnText;
+            UI.sendBtn.disabled = false;
+          });
       } else {
         // បើមិនទាន់គ្រប់ លេងសម្លេងព្រមាន
         UI.sounds.warning.currentTime = 0;
         UI.sounds.warning.play();
+        form.reportValidity(); // បង្ហាញសារព្រមានរបស់ Browser
       }
     });
 
