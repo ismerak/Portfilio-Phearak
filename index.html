@@ -55,7 +55,7 @@
             transform: translateY(0);
           }
           50% {
-            transform: translateY(-15px);
+            transform: translateY(-20px) rotate(2deg);
           }
         }
         @keyframes bounce-x {
@@ -78,6 +78,30 @@
           75% {
             transform: translateY(-4px) rotate(-4deg);
           }
+        }
+      }
+      
+      @keyframes shine-anim {
+        0% { left: -100%; }
+        100% { left: 200%; }
+      }
+
+      @utility shine {
+        position: relative;
+        overflow: hidden;
+        &::after {
+          content: "";
+          position: absolute;
+          top: -50%;
+          left: -100%;
+          width: 60%;
+          height: 200%;
+          background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
+          transform: rotate(35deg);
+          pointer-events: none;
+        }
+        &:hover::after {
+          animation: shine-anim 0.8s ease-in-out forwards;
         }
       }
 
@@ -151,6 +175,9 @@
 
       @utility blob-follow-mouse {
         transition: transform 0.1s ease-out; /* ល្បឿននៃការរំកិលតាម Mouse */
+      }
+      #profile-image-container {
+        perspective: 1000px; /* Establishes a 3D rendering context for the 3D effect */
       }
     </style>
   </head>
@@ -279,15 +306,22 @@
             class="absolute inset-0 bg-green-500/20 rounded-full blur-3xl opacity-70 group-hover:opacity-100 transition-opacity duration-500"
           ></div>
 
-          <!-- Image Container with Glassmorphism Frame -->
-          <div
-            class="relative p-2 bg-white/5 backdrop-blur-sm rounded-3xl border border-white/10 shadow-2xl animate-float"
-          >
-            <img
-              class="h-96 w-auto object-cover rounded-2xl aspect-[3/4]"
-              src="profile.jpg"
-              alt="My Profile"
-            />
+          <!-- Image Container with Advanced Animation -->
+          <div class="relative p-1 bg-slate-900/50 backdrop-blur-sm rounded-[2.5rem] border border-white/5 shadow-2xl animate-float overflow-hidden group/frame">
+            <!-- Rotating Border Glow (Visible on Hover) -->
+            <div class="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_30%,#22c55e_50%,transparent_70%)] animate-[spin_3s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+            
+            <!-- Inner Frame -->
+            <div id="profile-image-container" class="relative bg-slate-950 rounded-[2.3rem] p-1.5 overflow-hidden">
+              <!-- 3D Mouse-follow Wrapper -->
+              <div id="profile-image-3d-wrapper" class="transition-transform duration-100 ease-out">
+                <img
+                  class="h-96 w-auto object-cover rounded-3xl aspect-[3/4] transition-all duration-700 group-hover:scale-110 group-hover:rotate-1 shine"
+                  src="profile.jpg"
+                  alt="My Profile"
+                />
+              </div>
+            </div>
           </div>
 
           <!-- Decoration: Small Floating Badge -->
@@ -928,6 +962,8 @@
         send: new Audio("sent.mp3"), // សម្លេងប៊ូតុង Send Message
         warning: new Audio("warning.mp3"), // សម្លេងព្រមានពេលបំពេញមិនទាន់គ្រប់
       },
+      profileImageContainer: document.getElementById("profile-image-container"),
+      profileImage3DWrapper: document.getElementById("profile-image-3d-wrapper"),
       downloadBtn: document.getElementById("download-cv"),
       sendBtn: document.getElementById("send-btn"),
       successAlert: document.getElementById("success-alert"),
@@ -1120,6 +1156,34 @@
         });
       });
 
+    // 3D Mouse-follow effect for profile image
+    if (UI.profileImageContainer && UI.profileImage3DWrapper) {
+      UI.profileImageContainer.addEventListener("mousemove", (e) => {
+        const { clientX, clientY } = e;
+        const { offsetWidth, offsetHeight, offsetLeft, offsetTop } = UI.profileImageContainer;
+
+        // Calculate the center of the container
+        const centerX = offsetLeft + offsetWidth / 2;
+        const centerY = offsetTop + offsetHeight / 2;
+
+        // Calculate the distance from the center
+        const deltaX = clientX - centerX;
+        const deltaY = clientY - centerY;
+
+        // Maximum rotation in degrees (adjust for desired intensity)
+        const maxRotation = 8;
+
+        // Calculate rotation based on mouse position
+        const rotateY = (deltaX / (offsetWidth / 2)) * maxRotation; // Rotate Y for horizontal mouse movement
+        const rotateX = -(deltaY / (offsetHeight / 2)) * maxRotation; // Rotate X for vertical mouse movement (inverted for natural feel)
+
+        UI.profileImage3DWrapper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      UI.profileImageContainer.addEventListener("mouseleave", () => {
+        UI.profileImage3DWrapper.style.transform = `rotateX(0deg) rotateY(0deg)`;
+      });
+    }
     // Chat Bot Logic
     const toggleChat = () => {
       const isOpen = UI.chat.window.classList.contains("opacity-100");
