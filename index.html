@@ -1,248 +1,896 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="icon.png">
-    <title>Portfolio</title>
+    <link rel="icon" href="icon.png" />
+    <title>RA PHEARAK</title>
     <style>
-        @layer utilities {
+      html {
+        scroll-behavior: smooth;
+      }
 
-            /* បង្កើត Keyframes សម្រាប់ចលនា */
-            @keyframes animate-blob {
-                0% {
-                    transform: translate(0px, 0px) scale(1);
-                }
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
 
-                33% {
-                    transform: translate(30px, -50px) scale(1.1);
-                }
+      ::-webkit-scrollbar-track {
+        background: #30751f;
+      }
 
-                66% {
-                    transform: translate(-20px, 20px) scale(0.9);
-                }
+      ::-webkit-scrollbar-thumb {
+        background: #7cf84f;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.571);
+      }
 
-                100% {
-                    transform: translate(0px, 0px) scale(1);
-                }
-            }
+      ::selection {
+        background: #7cf84f2c;
+        color: #ffffff;
+      }
 
-            /* បង្កើត Class សម្រាប់ហៅប្រើ */
-            .animate-blob {
-                animation: animate-blob 7s infinite;
-            }
+      @theme {
+        --animate-float: float 5s ease-in-out infinite;
+        --animate-bounce-x: bounce-x 0.5s ease-in-out infinite;
 
-            .animation-delay-2000 {
-                animation-delay: 2s;
-            }
-
-            .animation-delay-4000 {
-                animation-delay: 4s;
-            }
+        @keyframes float {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-15px);
+          }
         }
-        @layer utilities {
-  @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0px); }
-  }
-  
-  .animate-float {
-    animation: float 5s ease-in-out infinite;
-  }
-  
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-}
+        @keyframes bounce-x {
+          0%,
+          100% {
+            transform: scaleX(1);
+          }
+          50% {
+            transform: scaleX(1.05);
+          }
+        }
+        @keyframes shake {
+          0%,
+          100% {
+            transform: translateY(-4px) rotate(0deg);
+          }
+          25% {
+            transform: translateY(-4px) rotate(4deg);
+          }
+          75% {
+            transform: translateY(-4px) rotate(-4deg);
+          }
+        }
+      }
+
+      /* Custom Utilities */
+      @utility animate-float {
+        animation: var(--animate-float);
+      }
+      @utility hover-shake {
+        &:hover {
+          animation: shake 0.3s ease-in-out infinite;
+        }
+      }
+
+      /* បន្ថែមស្ទីលសម្រាប់បន្ទាត់ពីក្រោម Navbar */
+      @utility nav-link {
+        position: relative;
+        transition: color 0.3s ease;
+        &::after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -4px;
+          left: 0;
+          background-color: #22c55e;
+          transition: width 0.3s ease-in-out;
+        }
+        &.active {
+          color: #22c55e !important;
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+
+      @utility hover-bounce-x {
+        &:hover {
+          animation: var(--animate-bounce-x);
+          transform-origin: left;
+        }
+      }
+
+      @utility reveal {
+        opacity: 0;
+        transform: translateY(40px) scale(0.96);
+        transition:
+          opacity 1.2s cubic-bezier(0.33, 1, 0.68, 1),
+          transform 1.2s cubic-bezier(0.33, 1, 0.68, 1);
+        will-change: transform, opacity;
+      }
+      @utility reveal-active {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      @utility delay-100 {
+        transition-delay: 100ms;
+      }
+      @utility delay-200 {
+        transition-delay: 200ms;
+      }
+      @utility delay-300 {
+        transition-delay: 300ms;
+      }
+      @utility delay-400 {
+        transition-delay: 400ms;
+      }
+      @utility delay-500 {
+        transition-delay: 500ms;
+      }
+
+      @utility blob-follow-mouse {
+        transition: transform 0.1s ease-out; /* ល្បឿននៃការរំកិលតាម Mouse */
+      }
     </style>
-</head>
+  </head>
 
-<body class="bg-mist-950 overflow-x-hidden">
+  <body class="bg-slate-950 text-white overflow-x-hidden">
     <!-- navbar -->
-   <header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out">
-    <nav class="max-w-7xl mx-auto flex items-center justify-between py-5 text-white px-6 transition-all duration-500">
-        <span class="text-2xl font-bold tracking-tight">I'm <span class="text-green-400">Rakz</span></span>
-        
-        <ul class="hidden sm:flex gap-8 items-center font-medium">
-    <!-- Home -->
-    <li>
-        <a href="#home" class="inline-block hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform">
-            Home
-        </a>
-    </li>
+    <header
+      id="main-header"
+      class="fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out"
+    >
+      <nav
+        class="max-w-7xl mx-auto flex items-center justify-between py-5 px-6 transition-all duration-500 text-white"
+      >
+        <span class="text-2xl font-bold tracking-tight"
+          >I'm <span class="text-green-500">Rakz</span></span
+        >
 
-    <!-- About -->
-    <li>
-        <a class="inline-block hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform" href="#">
-            About
-        </a>
-    </li>
+        <ul class="hidden sm:flex gap-8 items-center font-medium text-gray-300">
+          <!-- Home -->
+          <li>
+            <a
+              href="#home"
+              class="nav-link inline-block hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform"
+            >
+              Home
+            </a>
+          </li>
 
-    <!-- Services -->
-    <li>
-        <a class="flex items-center gap-1 hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform" href="#">
-            Services <i class="ri-shining-fill text-[10px]"></i>
-        </a>
-    </li>
+          <!-- About -->
+          <li>
+            <a
+              class="nav-link inline-block hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform"
+              href="#about"
+            >
+              About
+            </a>
+          </li>
 
-    <!-- Page -->
-    <li>
-        <a class="inline-block hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform" href="#">
-            Page
-        </a>
-    </li>
+          <!-- Services -->
+          <li>
+            <a
+              class="nav-link flex items-center gap-1 hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform"
+              href="#services"
+            >
+              Services <i class="ri-shining-fill text-[10px]"></i>
+            </a>
+          </li>
 
-    <!-- Contact -->
-    <li>
-        <a class="flex items-center gap-1 hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform" href="#">
-            Contact <i class="ri-shining-fill text-[10px]"></i>
-        </a>
-    </li>
-</ul>
+          <!-- Page -->
+          <li>
+            <a
+              class="nav-link inline-block hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform"
+              href="#page"
+            >
+              Page
+            </a>
+          </li>
 
-        <a href="#" download="" class="bg-green-500 text-white text-[13px] sm:text-base px-6 py-2.5 rounded-full border-b-4 border-green-700 active:translate-y-1 cursor-pointer hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_0_20px_rgba(34,197,94,0.4)] flex items-center gap-2">
-            <i class="ri-download-cloud-fill"></i> Download CV
-        </a>
-    </nav>
-</header>
+          <!-- Contact -->
+          <li>
+            <a
+              class="nav-link flex items-center gap-1 hover:text-green-400 transition-all duration-300 active:-translate-y-1 transform"
+              href="#contact"
+            >
+              Contact <i class="ri-shining-fill text-[10px]"></i>
+            </a>
+          </li>
+        </ul>
 
-<!-- បន្ថែម Padding ឱ្យ Body ដើម្បីកុំឱ្យ Content លេចចូលក្រោម Header កាលនៅខាងលើគេ -->
-<div class="h-20"></div>
+        <div class="flex items-center gap-4">
+          <a
+            href="#"
+            id="download-cv"
+            download=""
+            class="bg-green-500 text-white text-[13px] sm:text-base px-6 py-2.5 rounded-full border-b-4 border-green-700 active:translate-y-1 cursor-pointer hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_0_20px_rgba(34,197,94,0.4)] flex items-center gap-2"
+          >
+            <i class="ri-download-cloud-fill"></i>
+            <span class="hidden md:inline">Download CV</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- បន្ថែម Padding ឱ្យ Body ដើម្បីកុំឱ្យ Content លេចចូលក្រោម Header កាលនៅខាងលើគេ -->
+    <div class="h-20"></div>
     <!-- end navbar -->
-    <!-- section -->
-    <section  class="max-w-7xl mx-auto text-center py-20 text-white px-4">
-        <div class="flex flex-col gap-4 items-center">
-            <p class="text-xl text-green-300">Personal Portfolio</p>
-            <span class="text-6xl font-bold">About <span class="text-green-500">Us</span></span></span>
-            <p class="max-w-[650px] mx-auto text-base sm:text-lg">I am a <span class="bg-gradient-to-r from-green-300 to-emerald-500 bg-clip-text text-transparent">Web Developer</span> with expertise in Front-end (React & Tailwind CSS) and am expanding my skills in Back-end. In addition to coding, I also have experience in repairing and installing IT Hardware.</p>
-            <p class="text-gray-400 text-base sm:text-lg">My goal is to create technology solutions that provide convenience and the best experience for users.</p>
-        </div>
-        <!-- header -->
-        <!-- main -->
+    <section
+      id="home"
+      class="max-w-7xl mx-auto text-center py-20 px-4 scroll-mt-20"
+    >
+      <div class="flex flex-col gap-4 items-center reveal">
+        <p class="text-xl text-green-300">Personal Portfolio</p>
+        <h1 class="text-6xl font-bold">
+          About <span class="text-green-500">Us</span>
+        </h1>
+        <p class="max-w-[650px] mx-auto text-base sm:text-lg">
+          I am a
+          <span
+            class="bg-gradient-to-r from-green-300 to-emerald-500 bg-clip-text text-transparent"
+            >Web Developer</span
+          >
+          with expertise in Front-end (React & Tailwind CSS) and am expanding my
+          skills in Back-end. In addition to coding, I also have experience in
+          repairing and installing IT Hardware.
+        </p>
+        <p class="text-gray-400 text-base sm:text-lg">
+          My goal is to create technology solutions that provide convenience and
+          the best experience for users.
+        </p>
+      </div>
       <!-- Skill Section Container -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-16 mt-20 items-center">
-    
-    <!-- Left Side: Image with Effects -->
-    <div class="relative group justify-self-center md:justify-self-start">
-        <!-- Neon Glow Backlight -->
-        <div class="absolute inset-0 bg-green-500/20 rounded-full blur-3xl opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
-        
-        <!-- Image Container with Glassmorphism Frame -->
-        <div class="relative p-2 bg-white/5 backdrop-blur-sm rounded-3xl border border-white/10 shadow-2xl animate-float">
-            <img class="h-96 w-auto object-cover rounded-2xl aspect-[3/4]" src="profile.jpg" alt="My Profile">
-        </div>
-        
-        <!-- Decoration: Small Floating Badge -->
-        <div class="absolute -bottom-5 -right-5 bg-emerald-950/80 backdrop-blur-lg p-4 rounded-xl border border-emerald-500/30 shadow-xl animate-float animation-delay-2000">
-            <i class="ri-code-s-slash-line text-3xl text-emerald-400"></i>
-        </div>
-    </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 mt-20 items-center">
+        <!-- Left Side: Image with Effects -->
+        <div
+          class="relative group justify-self-center md:justify-self-start reveal"
+        >
+          <!-- Neon Glow Backlight -->
+          <div
+            class="absolute inset-0 bg-green-500/20 rounded-full blur-3xl opacity-70 group-hover:opacity-100 transition-opacity duration-500"
+          ></div>
 
-    <!-- Right Side: Text & Skills -->
-    <div class="mx-auto">
-        <!-- Section Header -->
-        <div class="flex flex-col gap-4 mb-12">
+          <!-- Image Container with Glassmorphism Frame -->
+          <div
+            class="relative p-2 bg-white/5 backdrop-blur-sm rounded-3xl border border-white/10 shadow-2xl animate-float"
+          >
+            <img
+              class="h-96 w-auto object-cover rounded-2xl aspect-[3/4]"
+              src="profile.jpg"
+              alt="My Profile"
+            />
+          </div>
+
+          <!-- Decoration: Small Floating Badge -->
+          <div
+            class="absolute -bottom-5 -right-5 bg-emerald-950/80 backdrop-blur-lg p-4 rounded-xl border border-emerald-500/30 shadow-xl animate-float animation-delay-2000"
+          >
+            <i class="ri-code-s-slash-line text-3xl text-emerald-400"></i>
+          </div>
+        </div>
+
+        <!-- Right Side: Text & Skills -->
+        <div id="about" class="mx-auto reveal scroll-mt-20">
+          <!-- Section Header -->
+          <div class="flex flex-col gap-4 mb-12">
             <div class="flex items-center gap-2">
-                <span class="w-10 h-0.5 bg-emerald-500"></span>
-                <p class="text-emerald-400 font-medium tracking-wider uppercase text-sm">My Expertise</p>
+              <span class="w-10 h-0.5 bg-emerald-500"></span>
+              <p
+                class="text-emerald-400 font-medium tracking-wider uppercase text-sm"
+              >
+                My Expertise
+              </p>
             </div>
-            <h2 class="text-5xl font-bold leading-tight text-white">
-                What I <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-300">Can Do?</span>
+            <h2 class="text-5xl font-bold leading-tight">
+              What I
+              <span
+                class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-300"
+                >Can Do?</span
+              >
             </h2>
             <p class="text-gray-400 max-w-lg mt-2">
-                With a solid foundation in front-end development and a growing expertise in back-end systems, I specialize in building responsive, user-centric web applications. My technical toolkit is driven by a passion for clean code and efficient problem-solving
+              With a solid foundation in front-end development and a growing
+              expertise in back-end systems, I specialize in building
+              responsive, user-centric web applications. My technical toolkit is
+              driven by a passion for clean code and efficient problem-solving
             </p>
-        </div>
+          </div>
 
-        <!-- Skills Progress Bars with Neon Glow -->
-        <div class="flex flex-col gap-y-8 max-w-xl text-white">
-            
+          <div class="flex flex-col gap-y-8 max-w-xl">
             <!-- Skill: HTML -->
             <div>
-                <div class="flex items-center justify-between mb-2.5">
-                    <span class="font-semibold text-lg flex items-center gap-2"><i class="ri-html5-fill text-orange-500"></i> HTML</span>
-                    <span class="text-sm font-medium p-1 px-3 bg-orange-950/50 rounded-full text-orange-300 border border-orange-500/20">75%</span>
-                </div>
-                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden shadow-inner">
-                    <div class="w-[75%] bg-orange-500 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_#f97316]"></div>
-                </div>
+              <div class="flex items-center justify-between mb-2.5">
+                <span class="font-semibold text-lg flex items-center gap-2"
+                  ><i class="ri-html5-fill text-orange-500"></i> HTML</span
+                >
+                <span
+                  class="text-sm font-medium p-1 px-3 bg-orange-950/50 rounded-full text-orange-300 border border-orange-500/20"
+                  >75%</span
+                >
+              </div>
+              <div
+                class="w-full bg-gray-800 h-2 rounded-full overflow-hidden shadow-inner"
+              >
+                <div
+                  class="w-[75%] bg-orange-500 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_#f97316] hover-bounce-x cursor-pointer"
+                ></div>
+              </div>
             </div>
 
             <!-- Skill: Tailwind CSS -->
             <div>
-                <div class="flex items-center justify-between mb-2.5">
-                    <span class="font-semibold text-lg flex items-center gap-2"><i class="ri-tailwind-css-fill text-sky-400"></i> Tailwind CSS</span>
-                    <span class="text-sm font-medium p-1 px-3 bg-sky-950/50 rounded-full text-sky-300 border border-sky-500/20">65%</span>
-                </div>
-                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden shadow-inner">
-                    <div class="w-[65%] bg-sky-400 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_#38bdf8]"></div>
-                </div>
+              <div class="flex items-center justify-between mb-2.5">
+                <span class="font-semibold text-lg flex items-center gap-2"
+                  ><i class="ri-tailwind-css-fill text-sky-400"></i> Tailwind
+                  CSS</span
+                >
+                <span
+                  class="text-sm font-medium p-1 px-3 bg-sky-950/50 rounded-full text-sky-300 border border-sky-500/20"
+                  >65%</span
+                >
+              </div>
+              <div
+                class="w-full bg-gray-800 h-2 rounded-full overflow-hidden shadow-inner"
+              >
+                <div
+                  class="w-[65%] bg-sky-400 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_#38bdf8] hover-bounce-x cursor-pointer"
+                ></div>
+              </div>
             </div>
 
             <!-- Skill: JavaScript -->
             <div>
-                <div class="flex items-center justify-between mb-2.5">
-                    <span class="font-semibold text-lg flex items-center gap-2"><i class="ri-javascript-fill text-yellow-400"></i> JavaScript</span>
-                    <span class="text-sm font-medium p-1 px-3 bg-yellow-950/50 rounded-full text-yellow-300 border border-yellow-500/20">20%</span>
-                </div>
-                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden shadow-inner">
-                    <div class="w-[20%] bg-yellow-400 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_#facc15]"></div>
-                </div>
+              <div class="flex items-center justify-between mb-2.5">
+                <span class="font-semibold text-lg flex items-center gap-2"
+                  ><i class="ri-javascript-fill text-yellow-400"></i>
+                  JavaScript</span
+                >
+                <span
+                  class="text-sm font-medium p-1 px-3 bg-yellow-950/50 rounded-full text-yellow-300 border border-yellow-500/20"
+                  >20%</span
+                >
+              </div>
+              <div
+                class="w-full bg-gray-800 h-2 rounded-full overflow-hidden shadow-inner"
+              >
+                <div
+                  class="w-[20%] bg-yellow-400 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_#facc15] hover-bounce-x cursor-pointer"
+                ></div>
+              </div>
             </div>
 
             <!-- Skill: React JS -->
             <div>
-                <div class="flex items-center justify-between mb-2.5">
-                    <span class="font-semibold text-lg flex items-center gap-2"><i class="ri-reactjs-fill text-blue-500"></i> React JS</span>
-                    <span class="text-sm font-medium p-1 px-3 bg-blue-950/50 rounded-full text-blue-300 border border-blue-500/20">30%</span>
-                </div>
-                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden shadow-inner">
-                    <div class="w-[30%] bg-blue-500 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_#3b82f6]"></div>
-                </div>
+              <div class="flex items-center justify-between mb-2.5">
+                <span class="font-semibold text-lg flex items-center gap-2"
+                  ><i class="ri-reactjs-fill text-blue-500"></i> React JS</span
+                >
+                <span
+                  class="text-sm font-medium p-1 px-3 bg-blue-950/50 rounded-full text-blue-300 border border-blue-500/20"
+                  >30%</span
+                >
+              </div>
+              <div
+                class="w-full bg-gray-800 h-2 rounded-full overflow-hidden shadow-inner"
+              >
+                <div
+                  class="w-[30%] bg-blue-500 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_#3b82f6] hover-bounce-x cursor-pointer"
+                ></div>
+              </div>
             </div>
-
+          </div>
         </div>
-    </div>
-</div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="max-w-7xl mx-auto py-20 px-4 scroll-mt-20">
+      <div class="flex flex-col gap-4 mb-16 text-center reveal">
+        <div class="flex items-center justify-center gap-2">
+          <span class="w-10 h-0.5 bg-emerald-500"></span>
+          <p
+            class="text-emerald-400 font-medium tracking-wider uppercase text-sm"
+          >
+            What I Offer
+          </p>
+          <span class="w-10 h-0.5 bg-emerald-500"></span>
+        </div>
+        <h2 class="text-5xl font-bold">
+          My <span class="text-green-500">Services</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Web Development -->
+        <div
+          class="reveal p-8 bg-slate-900/50 rounded-3xl border border-white/10 hover:border-green-500/50 transition-all group"
+        >
+          <div
+            class="w-14 h-14 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-500 text-3xl mb-6 group-hover:scale-110 transition-transform"
+          >
+            <i class="ri-code-box-line"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Web Development</h3>
+          <p class="text-gray-400">
+            Building modern, responsive, and high-performance websites using
+            React and Tailwind CSS.
+          </p>
+        </div>
+
+        <!-- UI/UX Design -->
+        <div
+          class="reveal delay-100 p-8 bg-slate-900/50 rounded-3xl border border-white/10 hover:border-green-500/50 transition-all group"
+        >
+          <div
+            class="w-14 h-14 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-500 text-3xl mb-6 group-hover:scale-110 transition-transform"
+          >
+            <i class="ri-layout-masonry-line"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">UI/UX Design</h3>
+          <p class="text-gray-400">
+            Designing intuitive user interfaces and experiences that are both
+            beautiful and functional.
+          </p>
+        </div>
+
+        <!-- IT Support -->
+        <div
+          class="reveal delay-200 p-8 bg-slate-900/50 rounded-3xl border border-white/10 hover:border-green-500/50 transition-all group"
+        >
+          <div
+            class="w-14 h-14 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-500 text-3xl mb-6 group-hover:scale-110 transition-transform"
+          >
+            <i class="ri-tools-line"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">IT Support</h3>
+          <p class="text-gray-400">
+            Expertise in repairing and installing IT hardware, ensuring your
+            systems run smoothly.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section (Page) -->
+    <section id="page" class="max-w-7xl mx-auto py-20 px-4 scroll-mt-20">
+      <div class="flex flex-col gap-4 mb-16 text-center reveal">
+        <div class="flex items-center justify-center gap-2">
+          <span class="w-10 h-0.5 bg-emerald-500"></span>
+          <p
+            class="text-emerald-400 font-medium tracking-wider uppercase text-sm"
+          >
+            Recent Work
+          </p>
+          <span class="w-10 h-0.5 bg-emerald-500"></span>
+        </div>
+        <h2 class="text-5xl font-bold">
+          Selected <span class="text-green-500">Projects</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Project 1 -->
+        <div
+          class="reveal relative overflow-hidden rounded-3xl group border border-white/10"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop"
+            alt="Project 1"
+            class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8"
+          >
+            <h3 class="text-2xl font-bold text-white">E-commerce Platform</h3>
+            <p class="text-gray-300 mb-4">
+              A full-stack online store built with React and Node.js.
+            </p>
+            <a
+              href="#"
+              class="view-project text-green-400 flex items-center gap-2 font-medium"
+              >View Project <i class="ri-arrow-right-line"></i
+            ></a>
+          </div>
+        </div>
+        <!-- Project 2 -->
+        <div
+          class="reveal delay-100 relative overflow-hidden rounded-3xl group border border-white/10"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2026&auto=format&fit=crop"
+            alt="Project 2"
+            class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8"
+          >
+            <h3 class="text-2xl font-bold text-white">Portfolio Website</h3>
+            <p class="text-gray-300 mb-4">
+              Clean and modern personal site with Tailwind CSS.
+            </p>
+            <a
+              href="#"
+              class="view-project text-green-400 flex items-center gap-2 font-medium"
+              >View Project <i class="ri-arrow-right-line"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="max-w-7xl mx-auto py-20 px-4 scroll-mt-20">
+      <div class="flex flex-col gap-4 mb-16 text-center reveal">
+        <div class="flex items-center justify-center gap-2">
+          <span class="w-10 h-0.5 bg-emerald-500"></span>
+          <p
+            class="text-emerald-400 font-medium tracking-wider uppercase text-sm"
+          >
+            Get In Touch
+          </p>
+          <span class="w-10 h-0.5 bg-emerald-500"></span>
+        </div>
+        <h2 class="text-5xl font-bold">
+          Contact <span class="text-green-500">Me</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <!-- Contact Info -->
+        <div class="space-y-8">
+          <div
+            class="reveal p-6 bg-slate-900/50 rounded-2xl border border-white/10 hover:border-green-500/50 transition-colors group"
+          >
+            <div class="flex items-center gap-4">
+              <div
+                class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-green-500 text-2xl group-hover:scale-110 transition-transform"
+              >
+                <i class="ri-mail-send-line"></i>
+              </div>
+              <div>
+                <p class="text-sm text-gray-400">Email Address</p>
+                <p class="text-lg font-semibold">phearak.ra@example.com</p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="reveal delay-100 p-6 bg-slate-900/50 rounded-2xl border border-white/10 hover:border-green-500/50 transition-colors group"
+          >
+            <div class="flex items-center gap-4">
+              <div
+                class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-green-500 text-2xl group-hover:scale-110 transition-transform"
+              >
+                <i class="ri-map-pin-2-line"></i>
+              </div>
+              <div>
+                <p class="text-sm text-gray-400">Location</p>
+                <p class="text-lg font-semibold">Phnom Penh, Cambodia</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Links -->
+          <div class="reveal delay-200 flex gap-4">
+            <a
+              href="#"
+              class="w-12 h-12 bg-slate-900/50 rounded-xl flex items-center justify-center text-xl text-gray-400 border border-white/10 hover:border-green-500 hover:text-green-500 transition-all"
+            >
+              <i class="ri-facebook-fill"></i>
+            </a>
+            <a
+              href="#"
+              class="w-12 h-12 bg-slate-900/50 rounded-xl flex items-center justify-center text-xl text-gray-400 border border-white/10 hover:border-green-500 hover:text-green-500 transition-all"
+            >
+              <i class="ri-github-fill"></i>
+            </a>
+            <a
+              href="#"
+              class="w-12 h-12 bg-slate-900/50 rounded-xl flex items-center justify-center text-xl text-gray-400 border border-white/10 hover:border-green-500 hover:text-green-500 transition-all"
+            >
+              <i class="ri-linkedin-fill"></i>
+            </a>
+            <a
+              href="#"
+              class="w-12 h-12 bg-slate-900/50 rounded-xl flex items-center justify-center text-xl text-gray-400 border border-white/10 hover:border-green-500 hover:text-green-500 transition-all"
+            >
+              <i class="ri-telegram-fill"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <form
+          class="reveal delay-300 bg-slate-900/50 p-8 rounded-3xl border border-white/10 shadow-xl space-y-6"
+        >
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <input
+              type="text"
+              placeholder="Your Name"
+              class="w-full bg-slate-800/50 border border-white/5 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all text-white"
+              required
+            />
+            <input
+              type="email"
+              placeholder="Your Email"
+              class="w-full bg-slate-800/50 border border-white/5 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all text-white"
+              required
+            />
+          </div>
+          <input
+            type="text"
+            placeholder="Subject"
+            class="w-full bg-slate-800/50 border border-white/5 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all text-white"
+          />
+          <textarea
+            rows="4"
+            placeholder="Your Message"
+            class="w-full bg-slate-800/50 border border-white/5 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all text-white resize-none"
+            required
+          ></textarea>
+
+          <button
+            id="send-btn"
+            type="submit"
+            class="w-full bg-green-500 text-white font-bold py-4 rounded-xl border-b-4 border-green-700 hover:-translate-y-1 active:translate-y-0.5 transition-all shadow-lg shadow-green-500/20 flex items-center justify-center gap-2"
+          >
+            Send Message <i class="ri-send-plane-fill"></i>
+          </button>
+        </form>
+      </div>
     </section>
     <!-- end section -->
+
+    <!-- Footer Section -->
+    <footer
+      class="border-t border-white/10 py-12 px-4 relative z-10 bg-slate-950"
+    >
+      <div
+        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 reveal"
+      >
+        <!-- Branding & Copyright -->
+        <div class="flex flex-col items-center md:items-start gap-4">
+          <span class="text-2xl font-bold tracking-tight">
+            I'm <span class="text-green-500">Rakz</span>
+          </span>
+          <p class="text-gray-400 text-sm">
+            &copy; 2025 RA PHEARAK. All rights reserved.
+          </p>
+        </div>
+
+        <!-- Footer Links -->
+        <div
+          class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-gray-400 font-medium"
+        >
+          <a href="#home" class="hover:text-green-400 transition-colors"
+            >Home</a
+          >
+          <a href="#about" class="hover:text-green-400 transition-colors"
+            >About</a
+          >
+          <a href="#services" class="hover:text-green-400 transition-colors"
+            >Services</a
+          >
+          <a href="#page" class="hover:text-green-400 transition-colors"
+            >Page</a
+          >
+          <a href="#contact" class="hover:text-green-400 transition-colors"
+            >Contact</a
+          >
+        </div>
+      </div>
+    </footer>
+
     <!-- Background Animation Container -->
     <div class="fixed inset-0 -z-10 overflow-hidden">
-        <!-- Blob 1 -->
-        <div
-            class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-green-500/30 rounded-full blur-[120px] animate-blob">
-        </div>
-        <!-- Blob 2 -->
-        <div
-            class="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] bg-emerald-600/20 rounded-full blur-[100px] animate-blob animation-delay-2000">
-        </div>
-        <!-- Blob 3 -->
-        <div
-            class="absolute top-[30%] left-[20%] w-[300px] h-[300px] bg-lime-400/20 rounded-full blur-[80px] animate-blob animation-delay-4000">
-        </div>
+      <!-- Blob 1 -->
+      <div
+        id="blob1"
+        class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-green-500/30 rounded-full blur-[120px] blob-follow-mouse"
+      ></div>
+      <!-- Blob 2 -->
+      <div
+        id="blob2"
+        class="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] bg-emerald-600/20 rounded-full blur-[100px] blob-follow-mouse"
+      ></div>
+      <!-- Blob 3 -->
+      <div
+        id="blob3"
+        class="absolute top-[30%] left-[20%] w-[300px] h-[300px] bg-lime-400/20 rounded-full blur-[80px] blob-follow-mouse"
+      ></div>
     </div>
     <!--End Background Animation Container-->
-</body>
-<script>
-    const header = document.getElementById('main-header');
-    const nav = header.querySelector('nav');
 
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            // ពេល Scroll ចុះក្រោម៖ បន្ថែម Blur, បង្រួមទំហំ និងដូរពណ៌
-            header.classList.add('bg-black/20', 'backdrop-blur-xl');
-            nav.classList.remove('py-5');
-            nav.classList.add('py-3');
-        } else {
-            // ពេលនៅខាងលើបង្អស់៖ ឱ្យវាមកសភាពដើមវិញ
-            header.classList.remove('bg-black/20', 'backdrop-blur-xl');
-            nav.classList.remove('py-3');
-            nav.classList.add('py-5');
+    <!-- Back to Top Button -->
+    <button
+      id="back-to-top"
+      class="fixed bottom-8 right-8 bg-green-500 text-white w-12 h-12 rounded-full shadow-2xl opacity-0 invisible transition-all duration-300 hover:bg-green-600 hover:-translate-y-1 hover-shake flex items-center justify-center z-50 cursor-pointer border-b-4 border-green-700 active:translate-y-1"
+    >
+      <i class="ri-arrow-up-line text-2xl"></i>
+    </button>
+
+    <!-- Lightbox Overlay -->
+    <div
+      id="lightbox"
+      class="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center opacity-0 invisible transition-all duration-300 backdrop-blur-sm cursor-zoom-out"
+    >
+      <button
+        id="close-lightbox"
+        class="absolute top-6 right-6 text-white text-4xl hover:text-green-500 transition-colors cursor-pointer"
+      >
+        <i class="ri-close-line"></i>
+      </button>
+      <img
+        id="lightbox-img"
+        src=""
+        alt="Full View"
+        class="max-w-[90%] max-h-[90vh] rounded-lg shadow-2xl transform scale-90 transition-transform duration-300"
+      />
+    </div>
+  </body>
+  <script>
+    const UI = {
+      header: document.getElementById("main-header"),
+      nav: document.querySelector("#main-header nav"),
+      backToTopBtn: document.getElementById("back-to-top"),
+      blobs: [
+        document.getElementById("blob1"),
+        document.getElementById("blob2"),
+        document.getElementById("blob3"),
+      ],
+      navLinks: document.querySelectorAll("nav ul li a"),
+      sections: document.querySelectorAll("section[id], div[id='about']"),
+      lightbox: {
+        container: document.getElementById("lightbox"),
+        img: document.getElementById("lightbox-img"),
+        close: document.getElementById("close-lightbox"),
+        triggers: document.querySelectorAll(".view-project"),
+      },
+      sounds: {
+        form: new Audio("cvsave.mp3"), // សម្លេងចុចលើប្រអប់បំពេញក្នុង Form
+        upTop: new Audio("clickbtn.mp3"), // សម្លេងប៊ូតុងឡើងលើវិញ
+        download: new Audio("download_sound.wav"), // សម្លេងប៊ូតុង Download CV
+        send: new Audio("sent.mp3"), // សម្លេងប៊ូតុង Send Message
+        warning: new Audio("warning.mp3"), // សម្លេងព្រមានពេលបំពេញមិនទាន់គ្រប់
+      },
+      downloadBtn: document.getElementById("download-cv"),
+      sendBtn: document.getElementById("send-btn"),
+    };
+
+    // --- Logic functions ---
+    function updateHeaderState() {
+      const isScrolled = window.scrollY > 50;
+      UI.header.classList.toggle("bg-black/20", isScrolled);
+      UI.header.classList.toggle("backdrop-blur-xl", isScrolled);
+      UI.nav.classList.toggle("py-3", isScrolled);
+      UI.nav.classList.toggle("py-5", !isScrolled);
+
+      UI.backToTopBtn.classList.toggle("opacity-100", window.scrollY > 300);
+      UI.backToTopBtn.classList.toggle("visible", window.scrollY > 300);
+      UI.backToTopBtn.classList.toggle("opacity-0", window.scrollY <= 300);
+      UI.backToTopBtn.classList.toggle("invisible", window.scrollY <= 300);
+    }
+
+    function updateActiveNavLink() {
+      let currentSection = "";
+      UI.sections.forEach((section) => {
+        if (window.pageYOffset >= section.offsetTop - 150) {
+          currentSection = section.getAttribute("id");
         }
+      });
+      UI.navLinks.forEach((link) => {
+        link.classList.toggle(
+          "active",
+          link.getAttribute("href").includes(currentSection) &&
+            currentSection !== "",
+        );
+      });
+    }
+    // --- Event Listeners & Initialization ---
+    window.addEventListener("scroll", () => {
+      updateHeaderState();
+      updateActiveNavLink();
     });
-</script>
+
+    UI.backToTopBtn.addEventListener("click", () => {
+      UI.sounds.upTop.currentTime = 0;
+      UI.sounds.upTop.play();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // សម្លេងសម្រាប់ប៊ូតុង Download CV
+    UI.downloadBtn.addEventListener("click", () => {
+      UI.sounds.download.currentTime = 0;
+      UI.sounds.download.play();
+    });
+
+    // សម្លេងសម្រាប់ប៊ូតុង Send Message (បំបែកចេញពី Form Click ធម្មតា)
+    UI.sendBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const form = UI.sendBtn.closest("form");
+
+      if (form.checkValidity()) {
+        // បើបំពេញគ្រប់អស់ លេងសម្លេងជោគជ័យ
+        UI.sounds.send.currentTime = 0;
+        UI.sounds.send.play();
+      } else {
+        // បើមិនទាន់គ្រប់ លេងសម្លេងព្រមាន
+        UI.sounds.warning.currentTime = 0;
+        UI.sounds.warning.play();
+      }
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      const { clientX: mouseX, clientY: mouseY } = e;
+      const { innerWidth: w, innerHeight: h } = window;
+      const intensities = [40, -60, 80];
+      UI.blobs.forEach((blob, i) => {
+        const moveX = (mouseX / w - 0.5) * intensities[i];
+        const moveY = (mouseY / h - 0.5) * intensities[i];
+        blob.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+      });
+    });
+
+    // Portfolio Lightbox logic
+    UI.lightbox.triggers.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const imgSrc = link.closest(".reveal").querySelector("img").src;
+        UI.lightbox.img.src = imgSrc;
+        UI.lightbox.container.classList.replace("invisible", "visible");
+        UI.lightbox.container.classList.replace("opacity-0", "opacity-100");
+        UI.lightbox.img.classList.replace("scale-90", "scale-100");
+      });
+    });
+
+    const closeLightbox = () => {
+      UI.lightbox.container.classList.replace("visible", "invisible");
+      UI.lightbox.container.classList.replace("opacity-100", "opacity-0");
+      UI.lightbox.img.classList.replace("scale-100", "scale-90");
+    };
+    UI.lightbox.close.addEventListener("click", closeLightbox);
+    UI.lightbox.container.addEventListener("click", (e) => {
+      if (e.target === UI.lightbox.container) closeLightbox();
+    });
+
+    // Reveal Animations Initialization
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-active");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -50px 0px" },
+    );
+    document
+      .querySelectorAll(".reveal")
+      .forEach((el) => revealObserver.observe(el));
+
+    // បន្ថែមសម្លេងនៅពេលចុចលើធាតុនានាក្នុង Contact Form (Inputs, Textarea, និង Button)
+    document
+      .querySelectorAll("#contact form input, #contact form textarea")
+      .forEach((el) => {
+        el.addEventListener("click", () => {
+          UI.sounds.form.currentTime = 0;
+          UI.sounds.form.play();
+        });
+      });
+
+    // App Start
+    updateHeaderState();
+  </script>
 </html>
