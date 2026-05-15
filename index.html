@@ -45,15 +45,26 @@
             --animate-bounce-x: bounce-x 0.5s ease-in-out infinite;
 
             @keyframes star-twinkle {
-                0%, 100% { opacity: 0.2; transform: scale(1); }
-                50% { opacity: 0.8; transform: scale(1.2); }
+                0%, 100% { opacity: 0.2; }
+                50% { opacity: 1; }
             }
 
             @keyframes shooting-star {
-                0% { transform: translate(0, 0) rotate(-45deg) scale(0); opacity: 0; }
-                10% { opacity: 1; scale(1); }
-                70% { opacity: 1; }
-                100% { transform: translate(-1000px, 1000px) rotate(-45deg) scale(1); opacity: 0; }
+                0% { transform: translate(0, 0) rotate(-45deg) scaleX(0); opacity: 0; }
+                5% { opacity: 1; scaleX(1); }
+                100% { transform: translate(-1000px, 1000px) rotate(-45deg) scaleX(2); opacity: 0; }
+            }
+
+            @keyframes smoke-drift {
+                0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+                20% { opacity: 0.1; }
+                80% { opacity: 0.1; }
+                100% { transform: translateY(-250px) translateX(100px) scale(2); opacity: 0; }
+            }
+
+            @keyframes aurora-wave {
+                0%, 100% { transform: translate(-5%, -5%) rotate(0deg) scale(1); opacity: 0.3; }
+                50% { transform: translate(5%, 5%) rotate(2deg) scale(1.1); opacity: 0.5; }
             }
 
             @keyframes float {
@@ -705,10 +716,13 @@
                     class="w-full bg-slate-800/50 border border-white/5 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all text-white resize-none"
                     required></textarea>
 
-                <button id="send-btn" type="submit"
-                    class="w-full bg-green-500 text-white font-bold py-4 rounded-xl border-b-4 border-green-700 hover:-translate-y-1 active:translate-y-0.5 transition-all shadow-lg shadow-green-500/20 flex items-center justify-center gap-2">
-                    Send Message <i class="ri-send-plane-fill"></i>
-                </button>
+                <div class="relative w-full rounded-xl overflow-hidden group">
+                    <div class="absolute inset-[-100%] bg-[conic-gradient(from_0deg,transparent_30%,#22c55e_50%,transparent_70%)] animate-[spin_3s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0"></div>
+                    <button id="send-btn" type="submit"
+                        class="relative w-full bg-green-500 text-white font-bold py-4 rounded-xl border-b-4 border-green-700 hover:-translate-y-1 active:translate-y-0.5 transition-all shadow-lg shadow-green-500/20 flex items-center justify-center gap-2 z-10">
+                        Send Message <i class="ri-send-plane-fill"></i>
+                    </button>
+                </div>
             </form>
         </div>
     </section>
@@ -751,6 +765,15 @@
 
     <!-- Background Animation Container -->
     <div class="fixed inset-0 -z-10 overflow-hidden">
+        <!-- Aurora Effect Layers -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute -top-[20%] -left-[10%] w-[120%] h-[70%] bg-gradient-to-br from-emerald-500/20 via-green-500/5 to-transparent blur-[100px] animate-[aurora-wave_20s_ease-in-out_infinite]"></div>
+            <div class="absolute -top-[10%] -right-[10%] w-[120%] h-[60%] bg-gradient-to-bl from-green-400/15 via-emerald-600/5 to-transparent blur-[120px] animate-[aurora-wave_25s_ease-in-out_infinite_reverse]"></div>
+        </div>
+
+        <!-- Smoke Effect Field -->
+        <div id="smoke-field" class="absolute inset-0 pointer-events-none"></div>
+
         <!-- Stars Field -->
         <div id="stars-field" class="absolute inset-0 pointer-events-none"></div>
 
@@ -810,43 +833,6 @@
         <a href="#contact" class="mobile-link hover:text-green-500 transition-colors">Contact</a>
     </div>
 
-    <!-- Floating Chat Bot -->
-    <div id="chat-bot" class="fixed bottom-8 left-8 z-50 flex flex-col items-start">
-        <!-- Chat Window -->
-        <div id="chat-window"
-            class="mb-4 w-80 h-96 bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden opacity-0 invisible translate-y-10 transition-all duration-300">
-            <!-- Header -->
-            <div class="p-4 bg-green-500 flex justify-between items-center text-white">
-                <div class="flex items-center gap-2">
-                    <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                    <span class="font-bold">Rakz Assistant</span>
-                </div>
-                <button id="close-chat" class="hover:bg-black/10 p-1 rounded-lg transition-colors cursor-pointer">
-                    <i class="ri-close-line"></i>
-                </button>
-            </div>
-            <!-- Messages -->
-            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4 scroll-smooth text-sm">
-                <div class="bg-white/5 p-3 rounded-2xl rounded-tl-none text-gray-300 max-w-[85%]">
-                    សួស្តី! ខ្ញុំជាជំនួយការរបស់ Rakz។ តើមានអ្វីឱ្យខ្ញុំជួយលោកអ្នកដែរឬទេ?
-                </div>
-            </div>
-            <!-- Input -->
-            <form id="chat-form" class="p-4 border-t border-white/10 flex gap-2">
-                <input type="text" id="chat-input" placeholder="សរសេរសារ..."
-                    class="flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-green-500 transition-all text-white" />
-                <button type="submit"
-                    class="bg-green-500 p-2 rounded-xl text-white hover:bg-green-600 transition-colors cursor-pointer">
-                    <i class="ri-send-plane-fill"></i>
-                </button>
-            </form>
-        </div>
-        <!-- Toggle Button -->
-        <button id="chat-toggle"
-            class="bg-green-500 text-white w-12 h-12 rounded-full shadow-2xl hover:bg-green-600 hover:-translate-y-1 transition-all flex items-center justify-center cursor-pointer">
-            <i class="ri-message-3-line text-2xl"></i>
-        </button>
-    </div>
 </body>
 <script>
     const UI = {
@@ -878,15 +864,6 @@
         downloadBtn: document.getElementById("download-cv"),
         sendBtn: document.getElementById("send-btn"),
         successAlert: document.getElementById("success-alert"),
-        chat: {
-            toggle: document.getElementById("chat-toggle"),
-            window: document.getElementById("chat-window"),
-            close: document.getElementById("close-lightbox"), // Note: reused close logic might differ
-            form: document.getElementById("chat-form"),
-            input: document.getElementById("chat-input"),
-            messages: document.getElementById("chat-messages"),
-            btn_close: document.getElementById("close-chat"),
-        },
         mobileMenu: {
             btn: document.getElementById("mobile-menu-btn"),
             container: document.getElementById("mobile-menu"),
@@ -969,12 +946,14 @@
                             "opacity-0",
                             "invisible",
                             "-translate-y-10",
+                            "opacity-0", "invisible", "-translate-y-10",
                         );
                         UI.successAlert.classList.add(
                             "opacity-100",
                             "visible",
                             "translate-y-0",
                         );
+                        UI.successAlert.classList.add("opacity-100", "visible", "translate-y-0");
 
                         form.reset();
 
@@ -989,6 +968,8 @@
                                 "visible",
                                 "translate-y-0",
                             );
+                            UI.successAlert.classList.add("opacity-0", "invisible", "-translate-y-10");
+                            UI.successAlert.classList.remove("opacity-100", "visible", "translate-y-0");
                         }, 3000);
                     },
                     (error) => {
@@ -1012,6 +993,16 @@
         const { clientX: mouseX, clientY: mouseY } = e;
         const { innerWidth: w, innerHeight: h } = window;
         const intensities = [40, -60, 80];
+
+        // ធ្វើឱ្យផ្កាយរត់តាម Mouse (Parallax effect)
+        if (window.parallaxStars) {
+            window.parallaxStars.forEach(star => {
+                const moveX = (mouseX / w - 0.5) * star.intensity;
+                const moveY = (mouseY / h - 0.5) * star.intensity;
+                star.el.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+            });
+        }
+
         UI.blobs.forEach((blob, i) => {
             const moveX = (mouseX / w - 0.5) * intensities[i];
             const moveY = (mouseY / h - 0.5) * intensities[i];
@@ -1095,65 +1086,6 @@
             UI.profileImage3DWrapper.style.transform = `rotateX(0deg) rotateY(0deg)`;
         });
     }
-    // Chat Bot Logic
-    const toggleChat = () => {
-        const isOpen = UI.chat.window.classList.contains("opacity-100");
-        if (isOpen) {
-            UI.chat.window.classList.add(
-                "opacity-0",
-                "invisible",
-                "translate-y-10",
-            );
-            UI.chat.window.classList.remove(
-                "opacity-100",
-                "visible",
-                "translate-y-0",
-            );
-        } else {
-            UI.chat.window.classList.remove(
-                "opacity-0",
-                "invisible",
-                "translate-y-10",
-            );
-            UI.chat.window.classList.add("opacity-100", "visible", "translate-y-0");
-        }
-    };
-
-    UI.chat.toggle.addEventListener("click", toggleChat);
-    UI.chat.btn_close.addEventListener("click", toggleChat);
-
-    UI.chat.form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const msg = UI.chat.input.value.trim();
-        if (!msg) return;
-
-        // User Message
-        appendMessage(msg, "user");
-        UI.chat.input.value = "";
-        UI.sounds.form.play();
-
-        // Fake Bot Reply
-        setTimeout(() => {
-            appendMessage(
-                "អរគុណសម្រាប់ការទាក់ទងមកកាន់ពួកយើង! ពួកយើងនឹងឆ្លើយតបទៅអ្នកវិញក្នុងពេលឆាប់ៗនេះ។",
-                "bot",
-            );
-        }, 1000);
-    });
-
-    function appendMessage(text, side) {
-        const div = document.createElement("div");
-        if (side === "user") {
-            div.className =
-                "bg-green-500 p-3 rounded-2xl rounded-tr-none text-white ml-auto max-w-[85%]";
-        } else {
-            div.className =
-                "bg-white/5 p-3 rounded-2xl rounded-tl-none text-gray-300 max-w-[85%]";
-        }
-        div.textContent = text;
-        UI.chat.messages.appendChild(div);
-        UI.chat.messages.scrollTop = UI.chat.messages.scrollHeight;
-    }
 
     // Mobile Menu Logic
     const toggleMobileMenu = (isOpen) => {
@@ -1194,12 +1126,13 @@
     function initStars() {
         const field = document.getElementById("stars-field");
         if (!field) return;
+        window.parallaxStars = [];
 
-        // បង្កើតផ្កាយតូចៗចំនួន ១៥០
-        const count = 150;
+        // បង្កើតផ្កាយតូចៗចំនួន ៦០ (កាត់បន្ថយដើម្បីឱ្យមើលទៅស្រឡះស្អាត)
+        const count = 60;
         for (let i = 0; i < count; i++) {
             const star = document.createElement("div");
-            const size = Math.random() * 2 + 1;
+            const size = Math.random() * 1 + 0.5; // កែសម្រួលទំហំឱ្យតូចជាងមុន (0.5px ទៅ 1.5px)
             star.className = "absolute bg-white rounded-full pointer-events-none";
             star.style.width = `${size}px`;
             star.style.height = `${size}px`;
@@ -1209,6 +1142,14 @@
             // បន្ថែមចលនាភ្លឹបភ្លែតៗ (Twinkle)
             star.style.animation = `star-twinkle ${Math.random() * 3 + 2}s infinite ease-in-out`;
             star.style.animationDelay = `${Math.random() * 5}s`;
+
+            // ប្រហែល ៤០% នៃផ្កាយនឹងរត់តាម Mouse
+            if (Math.random() > 0.6) {
+                window.parallaxStars.push({
+                    el: star,
+                    intensity: Math.random() * 40 + 10 // កម្រិតនៃការរត់តាម Mouse ខុសៗគ្នា
+                });
+            }
             
             field.appendChild(star);
         }
@@ -1216,16 +1157,39 @@
         // បន្ថែមផ្កាយដុះកន្ទុយ (Shooting stars) រៀងរាល់ ៦ វិនាទី
         setInterval(() => {
             const s = document.createElement("div");
-            s.className = "absolute h-px w-20 pointer-events-none opacity-0";
-            s.style.background = "linear-gradient(90deg, white, transparent)";
-            s.style.left = `${Math.random() * 100}%`;
-            s.style.top = `${Math.random() * 40}%`;
-            s.style.animation = "shooting-star 2s linear forwards";
+            const duration = Math.random() * 1 + 1; // ល្បឿនចន្លោះពី ១ ទៅ ២ វិនាទី
+            const length = Math.random() * 100 + 100; // ប្រវែងកន្ទុយចន្លោះពី 100px ទៅ 200px
+            s.className = "absolute h-[2px] pointer-events-none blur-[0.5px] shadow-[0_0_10px_#22c55e]";
+            s.style.width = `${length}px`;
+            s.style.background = "linear-gradient(to right, #fff, #22c55e, transparent)";
+            s.style.left = `${Math.random() * 120 - 10}%`; // ចេញមកពីក្រៅអេក្រង់បន្តិច
+            s.style.top = `${Math.random() * 50}%`;
+            s.style.animation = `shooting-star ${duration}s ease-out forwards`;
             field.appendChild(s);
-            setTimeout(() => s.remove(), 2000);
-        }, 6000);
+            setTimeout(() => s.remove(), duration * 1000);
+        }, 4000); // ឱ្យចេញមកញឹកជាងមុនបន្តិច (រៀងរាល់ ៤ វិនាទី)
     }
     initStars();
+
+    // --- Animated Smoke Background Logic ---
+    function initSmoke() {
+        const field = document.getElementById("smoke-field");
+        if (!field) return;
+        
+        for (let i = 0; i < 10; i++) {
+            const s = document.createElement("div");
+            const size = Math.random() * 400 + 300;
+            s.className = "absolute rounded-full bg-white/5 blur-[120px] pointer-events-none";
+            s.style.width = `${size}px`;
+            s.style.height = `${size}px`;
+            s.style.bottom = "-150px";
+            s.style.left = `${Math.random() * 110 - 5}%`;
+            s.style.animation = `smoke-drift ${Math.random() * 10 + 20}s infinite ease-in-out`;
+            s.style.animationDelay = `${Math.random() * 20}s`;
+            field.appendChild(s);
+        }
+    }
+    initSmoke();
 
     // --- Preloader Logic ---
     window.addEventListener("load", () => {
